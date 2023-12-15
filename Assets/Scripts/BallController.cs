@@ -36,9 +36,8 @@ public class BallController : MonoBehaviour
         score = 0;
         lastMilestone = 0;
         level = 0;
-        StartCoroutine(gm.Spawn(zones[level]));
     }
-    public void Left(){rb.AddForce(Vector3.left * speed);}
+    public void Left() {print("pelmen");rb.AddForce(Vector3.left * speed);}
     public void Right(){rb.AddForce(Vector3.right * speed);}
     public void Jump()
     {
@@ -57,6 +56,8 @@ public class BallController : MonoBehaviour
     public void Rastart(){Application.LoadLevel(Application.loadedLevel);}
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.A)) rb.AddForce(Vector3.left * speed);
+        if (Input.GetKeyDown(KeyCode.D)) rb.AddForce(Vector3.right * speed);
         if (Input.GetKeyDown(KeyCode.K)) SetScore(100);
         if (Input.GetKeyDown(KeyCode.L)) StartCoroutine(gm.Spawn(zones[level]));
         if (Input.GetKeyDown(KeyCode.P)) zones[level].MoveRings();
@@ -83,7 +84,7 @@ public class BallController : MonoBehaviour
                 rb.AddForce(Vector3.up * jumpPower);
             }
         }
-        if (transform.position.y < -100) panel2.SetActive(true);
+        if (transform.position.y < -100) ;
     }
     private IEnumerator TimerSize()
     {

@@ -8,7 +8,6 @@ public class AchivementController : MonoBehaviour
     [SerializeField] private List<Achive> achivments;
     [SerializeField] private GameObject template;
     [SerializeField] private Transform panelTransform;
-    [SerializeField] private GameObject achive;
     
     public void LoadMenu()
     {
@@ -16,7 +15,6 @@ public class AchivementController : MonoBehaviour
     }
     public void Start()
     {
-        achive.SetActive(false);
         for (int i = 0; i < achivments.Count; i++)
         {
             GameObject achivegm= Instantiate(template,panelTransform);
@@ -26,7 +24,6 @@ public class AchivementController : MonoBehaviour
                 if (PlayerPrefs.GetInt("Score") > achivments[i].value)
                 {
                     achivments[i].isCompleted = true;
-                    if (achive) achive.SetActive(true);
                 }
             }
             if (achivments[i].type == TypeOfAchievements.finishgame)
