@@ -5,8 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 public class BallController : MonoBehaviour
 {
-    public GameObject button1, button2, button3, panel, panel2, ttext, trap;
-    public Transform basket;
+    public GameObject button1, button2, button3, panel, panel2, ttext, trap, finishtext;
     public int level;
     public TextMeshProUGUI timerText;
     [SerializeField] private int jumpPower, speed, score, highScore;
@@ -14,7 +13,7 @@ public class BallController : MonoBehaviour
     [SerializeField] private Transform overlapPosition;
     [SerializeField] private float overlapRadius;
     [SerializeField] private LayerMask overlapLayerMask;
-    [SerializeField] private AudioSource bounceAudioSource, superAudioSource, loosingAudioSource;
+    [SerializeField] private AudioSource bounceAudioSource, superAudioSource, loosingAudioSource, audiofinish;
     private Rigidbody2D rb;
     private bool enableJump, dubleJump;
     private int lastMilestone;
@@ -22,6 +21,7 @@ public class BallController : MonoBehaviour
     [SerializeField] private List<Zone> zones;
     private void Start()
     {
+        finishtext.SetActive(false);
         panel2.SetActive(false);
         button3.SetActive(false);
         button1.SetActive(false);
@@ -153,7 +153,14 @@ public class BallController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("End")) PlayerPrefs.SetInt("OnlyUp", 1);
+        if (other.gameObject.CompareTag("End"))
+        {
+            PlayerPrefs.SetInt("OnlyUp", 1); 
+            finishtext.SetActive(true);
+            audiofinish.Play();
+            Destroy(finishtext, 3);
+            
+        }
         bounceAudioSource.Play();
     }
     private void OnDrawGizmos(){Gizmos.DrawSphere(overlapPosition.position, overlapRadius);}

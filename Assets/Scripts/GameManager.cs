@@ -17,19 +17,19 @@ public class GameManager : MonoBehaviour
 
     public void StartSecondGameArena()
     {
-        ball.basket.transform.position = startLocation2.position;
+        ball.transform.position = startLocation2.position;
         Destroy(ball.button1);
         ball.level +=1;
     }
     public void StartThirdGameArena()
     {
-        ball.basket.transform.position = startLocation3.position;
+        ball.transform.position = startLocation3.position;
         Destroy(ball.button2);
         ball.level +=1;
     }
     public void StartFourthGameArea()
     {
-        ball.basket.transform.position = startLocation4.position;
+        ball.transform.position = startLocation4.position;
         Destroy(ball.button3);
         ball.level +=1;
     }
