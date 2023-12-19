@@ -1,22 +1,31 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 public class Music : MonoBehaviour
 {
-    [SerializeField] AudioSource BackgroundMusic, BasketballSounds;
-    private bool isEnadle = true; 
-    [SerializeField] private Toggle toogle, toogle2;
-    public bool sounds;
+    public static Music Instance;
+    
+    [SerializeField] AudioSource BackgroundMusic;
+    [SerializeField] private AudioMixerGroup soundsGroup;
+    private bool isEnadle = true, soundsEnable = true;
     private void Start()
     {
         isEnadle = PlayerPrefs.GetInt("music") == 1;
         PlayerPrefs.SetInt("music",1);
-        toogle.isOn = isEnadle;
-        BackgroundMusic.enabled = isEnadle;
-        sounds = PlayerPrefs.GetInt("sounds") == 1;
-        PlayerPrefs.SetInt("sounds",1);
-        toogle2.isOn = sounds;
-        BasketballSounds.enabled = sounds;
 
+        soundsEnable = PlayerPrefs.GetInt("sounds") == 1;
+        PlayerPrefs.SetInt("sounds",1);
+        
+        BackgroundMusic.enabled = isEnadle;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void EnableMusic()
@@ -25,13 +34,5 @@ public class Music : MonoBehaviour
         BackgroundMusic.enabled = isEnadle;
         if (isEnadle) PlayerPrefs.SetInt("music",1);
         else PlayerPrefs.SetInt("music",0);
-    }
-
-    public void Sounds()
-    {
-        sounds = !sounds;
-        BasketballSounds.enabled = sounds;
-        if (sounds) PlayerPrefs.SetInt("sounds",1);
-        else PlayerPrefs.SetInt("sounds",0);
     }
 }

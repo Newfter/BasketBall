@@ -84,7 +84,8 @@ public class BallController : MonoBehaviour
                 rb.AddForce(Vector3.up * jumpPower);
             }
         }
-        if (transform.position.y < -100) ;
+
+        if (transform.position.y < -100) panel2.SetActive(true);
     }
     private IEnumerator TimerSize()
     {
@@ -159,7 +160,6 @@ public class BallController : MonoBehaviour
             finishtext.SetActive(true);
             audiofinish.Play();
             Destroy(finishtext, 3);
-            
         }
         bounceAudioSource.Play();
     }
