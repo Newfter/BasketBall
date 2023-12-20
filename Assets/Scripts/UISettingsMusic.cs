@@ -1,27 +1,23 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace DefaultNamespace
+public class UISettingsMusic : MonoBehaviour
 {
-    public class UISettingsMusic : MonoBehaviour
+    [SerializeField] private Toggle toggleMusic, toogleSounds;
+
+    private void Start()
     {
-        [SerializeField] private Toggle toggleMusic, toogleSounds;
+        toggleMusic.isOn = Music.Instance.isMusicEnable;
+        toogleSounds.isOn = Music.Instance.isSoundEnable;
+    }
 
-        private void Start()
-        {
-            toggleMusic.isOn = PlayerPrefs.GetInt("music") == 1;
-            toogleSounds.isOn = PlayerPrefs.GetInt("sounds") == 1;
-        }
+    public void EnebleToogleMusic(bool state)
+    {
+        Music.Instance.SwitchMusic(state);
+    }
 
-        public void EnebleToogleMusic()
-        {
-            Music.Instance.EnableMusic();
-        }
-
-        public void EnableToogleSounds()
-        {
-            
-        }
+    public void EnableToogleSounds(bool state)
+    {
+        Music.Instance.SwitchSounds(state);
     }
 }
